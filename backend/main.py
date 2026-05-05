@@ -18,7 +18,7 @@ dataframes: dict[str, dict] = {}
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 OLLAMA_BASE = "http://localhost:11434"
-OLLAMA_MODEL = "tinyllama"
+OLLAMA_MODEL = "qwen2:0.5b"
 
 
 class ChatRequest(BaseModel):
