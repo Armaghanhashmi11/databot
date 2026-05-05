@@ -81,7 +81,7 @@ def try_extract_chart(reply: str, df: pd.DataFrame) -> dict | None:
 
 async def ask_ollama(prompt: str) -> str:
     try:
-        async with httpx.AsyncClient(timeout=60) as client:
+        async with httpx.AsyncClient(timeout=120) as client:
             resp = await client.post(
                 OLLAMA_URL,
                 json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False},
