@@ -2,8 +2,8 @@ export default function DataTable({ tableData }) {
   if (!tableData) {
     return (
       <div className="table-empty-state">
-        <div className="spinner" style={{ margin: "0 auto 12px" }} />
-        <p>Loading table data…</p>
+        <div className="spinner-warm" style={{ margin: "0 auto 14px" }} />
+        <p>Loading data preview…</p>
       </div>
     );
   }
@@ -13,12 +13,13 @@ export default function DataTable({ tableData }) {
   return (
     <div className="table-shell">
       <div className="table-toolbar">
-        <span className="table-title">📋 Data Preview</span>
+        <span className="table-title">Data Preview</span>
         <span className="table-meta">
-          First {rows.length} rows &nbsp;·&nbsp; {columns.length} columns
-          &nbsp;·&nbsp; {numeric_columns.length} numeric
+          {rows.length} rows &nbsp;&middot;&nbsp; {columns.length} columns
+          &nbsp;&middot;&nbsp; {numeric_columns.length} numeric
         </span>
       </div>
+
       <div className="table-scroll-area">
         <table className="data-table">
           <thead>
@@ -27,7 +28,9 @@ export default function DataTable({ tableData }) {
               {columns.map((c) => (
                 <th key={c} className={numeric_columns.includes(c) ? "col-numeric" : ""}>
                   {c}
-                  {numeric_columns.includes(c) && <span className="col-type-badge">123</span>}
+                  {numeric_columns.includes(c) && (
+                    <span className="col-type-badge">num</span>
+                  )}
                 </th>
               ))}
             </tr>
@@ -41,7 +44,9 @@ export default function DataTable({ tableData }) {
                     key={c}
                     className={numeric_columns.includes(c) ? "cell-numeric" : "cell-text"}
                   >
-                    {row[c] === "" ? <span className="cell-null">—</span> : String(row[c])}
+                    {row[c] === "" || row[c] == null
+                      ? <span className="cell-null">—</span>
+                      : String(row[c])}
                   </td>
                 ))}
               </tr>

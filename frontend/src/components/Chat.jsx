@@ -16,9 +16,9 @@ export default function Chat({ messages, onSend, loading }) {
   };
 
   const suggestions = [
-    "Show me a chart of the data",
+    "Show me a chart of this data",
     "What are the key insights?",
-    "Which column has highest values?",
+    "Which column has the highest values?",
     "Describe the distribution",
   ];
 
@@ -27,24 +27,33 @@ export default function Chat({ messages, onSend, loading }) {
       <div className="messages-list">
         {messages.map((m, i) => (
           <div key={i} className={`message ${m.role}`}>
-            <div className="msg-avatar">{m.role === "assistant" ? "⬡" : "▸"}</div>
+            <p className="msg-sender">
+              {m.role === "assistant" ? "DataBot" : "You"}
+            </p>
             <div className="msg-bubble">{m.text}</div>
           </div>
         ))}
+
         {loading && (
           <div className="message assistant">
-            <div className="msg-avatar">⬡</div>
+            <p className="msg-sender">DataBot</p>
             <div className="msg-bubble typing">
               <span /><span /><span />
             </div>
           </div>
         )}
+
         <div ref={bottomRef} />
       </div>
 
       <div className="suggestions">
         {suggestions.map((s) => (
-          <button key={s} className="suggestion-chip" onClick={() => onSend(s)}>
+          <button
+            key={s}
+            className="suggestion-chip"
+            onClick={() => !loading && onSend(s)}
+            disabled={loading}
+          >
             {s}
           </button>
         ))}
@@ -59,7 +68,12 @@ export default function Chat({ messages, onSend, loading }) {
           placeholder="Ask anything about your data…"
           disabled={loading}
         />
-        <button className="send-btn" onClick={send} disabled={loading || !input.trim()}>
+        <button
+          className="send-btn"
+          onClick={send}
+          disabled={loading || !input.trim()}
+          aria-label="Send"
+        >
           {loading ? "…" : "→"}
         </button>
       </div>

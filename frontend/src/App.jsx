@@ -11,7 +11,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("chat");
   const [tableData, setTableData] = useState(null);
-  const [ollamaStatus, setOllamaStatus] = useState(null); // null | "ok" | "warn" | "down"
+  const [ollamaStatus, setOllamaStatus] = useState(null);
 
   useEffect(() => {
     const checkHealth = () => {
@@ -57,7 +57,7 @@ export default function App() {
       setMessages((m) => [...m, { role: "assistant", text: data.reply }]);
       if (data.chart) setChart(data.chart);
     } catch (e) {
-      setMessages((m) => [...m, { role: "assistant", text: `⚠ ${e.message}` }]);
+      setMessages((m) => [...m, { role: "assistant", text: `Error: ${e.message}` }]);
     }
     setLoading(false);
   };
@@ -65,27 +65,35 @@ export default function App() {
   return (
     <div className="app-shell">
       <header className="topbar">
-        <span className="logo">⬡ DataBot</span>
-        <span className="tagline">AI-Powered Data Analytics</span>
+        <span className="logo">
+          <span className="logo-dot" />
+          DataBot
+        </span>
+        <span className="tagline">Intelligent Data Analysis</span>
 
         <div className="topbar-right">
           {ollamaStatus === "down" && (
             <span className="status-pill status-down">
-              ● Ollama offline — run <code>ollama serve</code>
+              <span className="status-dot" />
+              Ollama offline — run <code>ollama serve</code>
             </span>
           )}
           {ollamaStatus === "warn" && (
             <span className="status-pill status-warn">
-              ● Ollama up — pull model: <code>ollama pull tinyllama</code>
+              <span className="status-dot" />
+              Model not pulled — <code>ollama pull tinyllama</code>
             </span>
           )}
           {ollamaStatus === "ok" && (
-            <span className="status-pill status-ok">● Ollama ready</span>
+            <span className="status-pill status-ok">
+              <span className="status-dot" />
+              Ollama ready
+            </span>
           )}
           {session && (
             <span className="file-badge">
-              📊 {session.filename}&nbsp;·&nbsp;
-              {session.shape[0].toLocaleString()} rows × {session.shape[1]} cols
+              {session.filename}&nbsp;&middot;&nbsp;
+              {session.shape[0].toLocaleString()} &times; {session.shape[1]}
             </span>
           )}
         </div>
@@ -102,13 +110,13 @@ export default function App() {
                   className={`tab-btn ${activeTab === "chat" ? "active" : ""}`}
                   onClick={() => setActiveTab("chat")}
                 >
-                  💬 Chat
+                  Conversation
                 </button>
                 <button
                   className={`tab-btn ${activeTab === "table" ? "active" : ""}`}
                   onClick={() => setActiveTab("table")}
                 >
-                  📋 Data Table
+                  Data Preview
                 </button>
               </div>
               <div className="tab-content">
