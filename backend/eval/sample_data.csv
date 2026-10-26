@@ -1,0 +1,21 @@
+order_id,customer,region,product,category,quantity,unit_price,order_date
+1001,Alice,West,Widget A,Hardware,3,19.99,2025-01-05
+1002,Bob,East,Widget B,Hardware,1,29.99,2025-01-07
+1003,Carla,West,Gadget X,Electronics,2,49.99,2025-01-10
+1004,David,South,Widget A,Hardware,5,19.99,2025-01-12
+1005,Elena,North,Gizmo Z,Electronics,1,99.99,2025-01-15
+1006,Frank,East,Widget B,Hardware,4,29.99,2025-01-18
+1007,Grace,West,Gadget X,Electronics,3,49.99,2025-01-20
+1008,Hank,South,Gizmo Z,Electronics,2,99.99,2025-01-22
+1009,Ivy,North,Widget A,Hardware,6,19.99,2025-01-25
+1010,Jack,East,Gadget X,Electronics,1,49.99,2025-01-28
+1011,Kara,West,Widget B,Hardware,2,29.99,2025-02-02
+1012,Leo,South,Gizmo Z,Electronics,3,99.99,2025-02-05
+1013,Mona,North,Widget A,Hardware,4,19.99,2025-02-08
+1014,Nate,East,Gadget X,Electronics,2,49.99,2025-02-11
+1015,Owen,West,Gizmo Z,Electronics,1,99.99,2025-02-14
+1016,Pia,South,Widget B,Hardware,5,29.99,2025-02-17
+1017,Quinn,North,Gadget X,Electronics,3,49.99,2025-02-20
+1018,Rosa,East,Widget A,Hardware,2,19.99,2025-02-23
+1019,Sam,West,Gizmo Z,Electronics,4,99.99,2025-02-26
+1020,Tara,South,Gadget X,Electronics,1,49.99,2025-03-01
