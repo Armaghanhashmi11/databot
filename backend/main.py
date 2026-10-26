@@ -1,9 +1,20 @@
+import logging
+
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import pandas as pd
 import io
 import httpx
+
+try:
+    from dotenv import load_dotenv
+
+    load_dotenv()
+except ImportError:
+    pass
+
+from session_store import dataframes
 
 app = FastAPI(title="DataBot API")
 
@@ -14,7 +25,17 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-dataframes: dict[str, dict] = {}
+# v2 (LangChain + LangGraph) backend is additive and optional: if its extra
+# dependencies (requirements-v2.txt) aren't installed, the original v1 app
+# below still runs exactly as before, just without /v2/* routes.
+try:
+    from v2.config import configure_langsmith
+    from v2.router import router as v2_router
+
+    configure_langsmith()
+    app.include_router(v2_router)
+except ImportError as e:
+    logging.getLogger(__name__).warning("v2 backend not loaded (missing dependency): %s", e)
 
 OLLAMA_URL = "http://localhost:11434/api/generate"
 OLLAMA_BASE = "http://localhost:11434"
