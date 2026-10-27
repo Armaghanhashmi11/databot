@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "question": "How many orders are in the dataset?",
+    "type": "numeric",
+    "value": 20,
+    "tolerance": 0
+  },
+  {
+    "id": 2,
+    "question": "How many unique customers placed orders?",
+    "type": "numeric",
+    "value": 20,
+    "tolerance": 0
+  },
+  {
+    "id": 3,
+    "question": "What is the total quantity sold in the Electronics category?",
+    "type": "numeric",
+    "value": 23,
+    "tolerance": 0
+  },
+  {
+    "id": 4,
+    "question": "Which region has the highest total revenue, where revenue is quantity times unit_price?",
+    "type": "text",
+    "keywords": ["west"],
+    "match": "any"
+  },
+  {
+    "id": 5,
+    "question": "What is the average unit_price across all orders, rounded to two decimals?",
+    "type": "numeric",
+    "value": 50.99,
+    "tolerance": 0.5
+  },
+  {
+    "id": 6,
+    "question": "How many orders came from the South region?",
+    "type": "numeric",
+    "value": 5,
+    "tolerance": 0
+  },
+  {
+    "id": 7,
+    "question": "Which product was ordered most frequently, counting number of orders per product?",
+    "type": "text",
+    "keywords": ["gadget x", "gadget"],
+    "match": "any"
+  },
+  {
+    "id": 8,
+    "question": "Which category has more total revenue: Hardware or Electronics?",
+    "type": "text",
+    "keywords": ["electronics"],
+    "match": "any"
+  },
+  {
+    "id": 9,
+    "question": "What are the earliest and latest order_date values in the dataset?",
+    "type": "text",
+    "keywords": ["2025-01-05", "2025-03-01"],
+    "match": "all"
+  },
+  {
+    "id": 10,
+    "question": "How many orders had a quantity greater than 3?",
+    "type": "numeric",
+    "value": 6,
+    "tolerance": 0
+  }
+]
