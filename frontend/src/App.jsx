@@ -3,6 +3,7 @@ import Upload from "./components/Upload";
 import Chat from "./components/Chat";
 import ChartPanel from "./components/ChartPanel";
 import DataTable from "./components/DataTable";
+import AskV2 from "./components/AskV2";
 
 export default function App() {
   const [session, setSession] = useState(null);
@@ -118,13 +119,19 @@ export default function App() {
                 >
                   Data Preview
                 </button>
+                <button
+                  className={`tab-btn ${activeTab === "agent" ? "active" : ""}`}
+                  onClick={() => setActiveTab("agent")}
+                >
+                  Agent (v2)
+                </button>
               </div>
               <div className="tab-content">
-                {activeTab === "chat" ? (
+                {activeTab === "chat" && (
                   <Chat messages={messages} onSend={handleSend} loading={loading} />
-                ) : (
-                  <DataTable tableData={tableData} />
                 )}
+                {activeTab === "table" && <DataTable tableData={tableData} />}
+                {activeTab === "agent" && <AskV2 session={session} />}
               </div>
             </div>
           )}

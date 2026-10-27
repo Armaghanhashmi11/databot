@@ -6,3 +6,5 @@ v2_data/
 .env
 *.egg-info/
 .pytest_cache/
+*.log
+*.pid
