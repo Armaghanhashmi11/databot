@@ -1,0 +1,50 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    environment:
+      LLM_PROVIDER: ${LLM_PROVIDER:-ollama}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-qwen2.5:7b}
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-opus-5}
+      DATABASE_URL: ${DATABASE_URL:-sqlite:///./v2_data/databot.sqlite}
+      LANGCHAIN_TRACING_V2: ${LANGCHAIN_TRACING_V2:-false}
+      LANGCHAIN_API_KEY: ${LANGCHAIN_API_KEY:-}
+      LANGCHAIN_PROJECT: ${LANGCHAIN_PROJECT:-databot-v2}
+    # Lets the container reach Ollama running on the host machine (Docker
+    # Desktop on Mac/Windows resolves host.docker.internal automatically;
+    # this entry makes it work on Linux too).
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - v2_data:/app/v2_data
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+
+  # Optional Postgres backend for the run_sql tool, instead of the default
+  # SQLite file. Bring it up with:
+  #   docker compose --profile postgres up -d
+  # then point the backend at it, e.g. in a .env file read by docker compose:
+  #   DATABASE_URL=postgresql+psycopg2://databot:databot@postgres:5432/databot
+  postgres:
+    image: postgres:16-alpine
+    profiles: ["postgres"]
+    environment:
+      POSTGRES_USER: databot
+      POSTGRES_PASSWORD: databot
+      POSTGRES_DB: databot
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  v2_data:
+  pg_data:
